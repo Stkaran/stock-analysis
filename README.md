@@ -22,3 +22,30 @@ There was also another major change that was added. Before, we used a serparate 
 ## Summary
 
 So in conclusion, it is clear that there are some major advantages when refactoring code. The most obvious of these is the increase in effciency. On a larger scale changes like what we did here could save massive amounts of time. As first we just want our code to work, but after it does going back and making it as simple as possible will not only increase performance, but if you ever need to come a edit it again, it will be easier  for you or someone else if it is streamlined. On the other hand, rafactoring can have downsides. One wrong parentheses can cause a code not to work, so when going back and changing a lot things can leave you in a place where you end not only having code theat doesn't work, but you've also created even more problems for yourself than you had before. This can end up being a huge timesink where you only make yourself more frustrated.
+
+In this case specifically, at first I thought my conditionals need to be in a nested for loop. Eventually I figured out they did't need to be and changed things back, however, the code still wasn't working.
+
+    '3a) Increase volume for current ticker
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+        '3b) Check if the current row is the first row with the selected tickerIndex.
+        'If  Then
+        If Cells(i - 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+                
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+            
+        'End If
+        End If
+        '3c) check if the current row is the last row with the selected ticker
+         'If the next row’s ticker doesn’t match, increase the tickerIndex.
+        'If  Then
+        If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+
+            tickerEndingPrices(tickerIndex) = Cells(j, 6).Value
+        
+        
+        '3d Increase the tickerIndex.
+       
+            tickerIndex = tickerIndex + 1
+   
+When trying to debug it, the error messages were always going to the first line in this code. After quite a bit of time, I finally realized the tickerEndingPrices was still set to a value of j from when I was doing the nested loop. When compared to a text editor like Vs Code, VBA does makke the refactoring process a bit more diffcult when making small errors such as this one. The major upside to VBA has to be the ability to save mutiple macros in one place. A big majority of the final code was just copy pasted from previous work (formatting, orignal ticker array, etc.). This saved lots time makes combining multiple subroutines very easy. 
